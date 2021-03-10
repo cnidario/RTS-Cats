@@ -10,9 +10,19 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
-"class": "Player",
+"class": "EntityManager",
 "language": "GDScript",
-"path": "res://Scripts/Player.gd"
+"path": "res://Scripts/EntityManager.gd"
+}, {
+"base": "Node",
+"class": "SelectionManager",
+"language": "GDScript",
+"path": "res://Scripts/SelectionManager.gd"
+}, {
+"base": "StaticBody2D",
+"class": "Structure",
+"language": "GDScript",
+"path": "res://Scripts/Structure.gd"
 }, {
 "base": "Node2D",
 "class": "Unit",
@@ -20,7 +30,9 @@ _global_script_classes=[ {
 "path": "res://Scripts/Unit.gd"
 } ]
 _global_script_class_icons={
-"Player": "",
+"EntityManager": "",
+"SelectionManager": "",
+"Structure": "",
 "Unit": ""
 }
 

@@ -1,13 +1,20 @@
 extends Node2D
 const Commands = preload("Commands.gd")
+const Defs = preload("Defs.gd")
 const CommandButton = preload("res://Scenes/CommandButton.tscn")
 
 onready var units = []
 var selected_unit
 
 func _ready():
-	for u in $Units.get_children():
-		units.append(u)
+	$SelectionManager.init($EntityManager)
+	$EntityManager.init($Units.get_children(), $Structures.get_children())
+	$Player/Camera2D/HUD.init($SelectionManager)
+	var p = $Player/Camera2D.get_camera_position()
+	var unit: Unit = $EntityManager.create_unit_type(p - Vector2(100, 100), Defs.UnitType.Espadachin)
+	$Units.add_child(unit)
+	var structure = $EntityManager.create_structure(p + Vector2(600, 128))
+	$Structures.add_child(structure)
 
 func _process(delta):
 	if Input.is_mouse_button_pressed(2) and selected_unit:
@@ -17,7 +24,7 @@ func _process(delta):
 func _input(event):
 	if event.is_action_pressed("click"):
 		# si llega hasta aquí el click es que nadie lo cogio
-		$Player.clear_selection()
+		$SelectionManager.clear_selection()
 		
 func place_building():
 	var p = $Map.world_to_buildings(get_global_mouse_position())

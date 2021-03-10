@@ -7,6 +7,8 @@ const CommandType = Commands.CommandType
 var owner_player: Node
 
 signal clicked(unit)
+signal unit_hp_changed(unit)
+
 var command = Commands.StopCommand.new()
 var current_path = []
 var destination
@@ -16,22 +18,16 @@ const EPS = 2.5
 var map
 var debug_path = true
 var selected setget set_selected
+var current_hp = 0
 
-var unit_state = {
-	max_hp = 5,
-	curr_hp = 4
-}
-
-var unit_descrition = {
-	actions = [
-		["build.png", "BUILD"]
-	],
-	portrait_img = "3p.png",
-	unit_type = "aldeano"
-}
+var unit_desc
 
 func _ready():
 	map = get_node("../../Map")
+	
+func init(unit_desc):
+	self.unit_desc = unit_desc.duplicate()
+	current_hp = unit_desc.hitpoints
 	update_hpbar()
 	
 func _draw():
@@ -96,5 +92,5 @@ func set_selected(newval):
 	$SelectionLine.visible = selected
 		
 func update_hpbar():
-	var percentage = (unit_state.curr_hp as float) / unit_state.max_hp
+	var percentage = (current_hp as float) / unit_desc.hitpoints
 	$HealthBar/Green.rect_scale.x = percentage
