@@ -1,22 +1,28 @@
-extends Node2D
+extends Node
 
-signal right_clicked(position)
+class_name Pathfinder
 
-export(Vector2) var map_size = Vector2.ONE * 16
-export(Vector2) var cell_size = Vector2(128, 128)
-onready var astar_node = AStar.new()
-onready var obstacles = _calculate_obstacle_cells()
+var game_map
 
-func _calculate_obstacle_cells():
-	var ground_tilemap = $Ground
-	var buildings_tilemap = $Buildings
-	# obstacles only from buildings tilemap
-	var obstacles = buildings_tilemap.get_used_cells_by_id(1)
-	return obstacles
+var astar_node = AStar.new()
+var obstacles = []
+var map_size
+var cell_size
 
-func _ready():
+func init(game_map):
+	self.game_map = game_map
+	map_size = game_map.map_size
+	cell_size = game_map.cell_size
+	obstacles = _calculate_obstacle_cells()
 	var walkable_cells_list = _astar_add_walkable_cells(obstacles)
 	_astar_connect_walkable_cells_diagonal(walkable_cells_list)
+
+func _calculate_obstacle_cells():
+	var ground_tilemap = game_map.get_node("Ground")
+	# obstacles only from ground tilemap
+	var obstacles = ground_tilemap.get_used_cells_by_id(6)
+	obstacles = obstacles + ground_tilemap.get_used_cells_by_id(7)
+	return obstacles
 	
 func _astar_connect_walkable_cells_diagonal(points_array):
 	for point in points_array:
@@ -52,29 +58,7 @@ func calculate_path(path_start_position, path_end_position):
 		point_path.append(Vector2(p.x, p.y))
 	return point_path
 
-func place_building(pos):
-	if pos.x < 0 or pos.x >= map_size.x or pos.y < 1 or pos.y >= map_size.y:
-		print("not valid building place")
-		return
-	if $Buildings.get_cellv(pos) != TileMap.INVALID_CELL  \
-			or $Buildings.get_cellv(pos - Vector2(0, 1)) != TileMap.INVALID_CELL:
-		print("building place occupied")
-		return
-	$Buildings.set_cellv(pos, 1)
-	$Buildings.set_cellv(pos - Vector2(0, 1), 0)
-
-func world_to_map(pos: Vector2):
-	return $Ground.world_to_map(pos)
-func map_to_world(pos: Vector2):
-	return $Ground.map_to_world(pos)
-func world_to_buildings(pos: Vector2):
-	return $Buildings.world_to_map(pos)
-
 func is_outside_map_bounds(point):
 	return point.x < 0 or point.y < 0 or point.x >= map_size.x or point.y >= map_size.y
 func calculate_point_index(point):
 	return point.x + map_size.x * point.y
-
-func _input(event):
-	if Input.is_action_pressed("right_click"):
-		emit_signal("right_clicked", get_global_mouse_position())

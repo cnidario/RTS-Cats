@@ -23,7 +23,7 @@ var current_hp = 0
 var unit_desc
 
 func _ready():
-	map = get_node("../../Map")
+	map = get_node("../../GameMap")
 	
 func init(unit_desc):
 	self.unit_desc = unit_desc.duplicate()
@@ -46,6 +46,7 @@ func cell_path_to_global(path):
 	global_path.append(destination)
 	return global_path
 func _process(delta):
+	var pathfinder = get_node("../../Pathfinder")
 	if debug_path:
 		update()
 	match command.command_type():
@@ -56,7 +57,7 @@ func _process(delta):
 			destination = move_cmd.to
 			var to_cell = map.world_to_map(move_cmd.to)
 			var current_cell = map.world_to_map(position)
-			var path = map.calculate_path(current_cell, to_cell)
+			var path = pathfinder.calculate_path(current_cell, to_cell)
 			path.pop_front()
 			if path:
 				current_path = cell_path_to_global(path)
@@ -92,7 +93,6 @@ func _input(event):
 				emit_signal("clicked", self)
 			elif event.is_action_pressed("right_click"):
 				pass
-
 
 func set_selected(newval):
 	selected = newval

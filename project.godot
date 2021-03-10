@@ -10,9 +10,24 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "CommandManager",
+"language": "GDScript",
+"path": "res://Scripts/CommandManager.gd"
+}, {
+"base": "Node",
 "class": "EntityManager",
 "language": "GDScript",
 "path": "res://Scripts/EntityManager.gd"
+}, {
+"base": "Node2D",
+"class": "GameMap",
+"language": "GDScript",
+"path": "res://Scripts/GameMap.gd"
+}, {
+"base": "Node",
+"class": "Pathfinder",
+"language": "GDScript",
+"path": "res://Scripts/Pathfinder.gd"
 }, {
 "base": "Node",
 "class": "SelectionManager",
@@ -30,7 +45,10 @@ _global_script_classes=[ {
 "path": "res://Scripts/Unit.gd"
 } ]
 _global_script_class_icons={
+"CommandManager": "",
 "EntityManager": "",
+"GameMap": "",
+"Pathfinder": "",
 "SelectionManager": "",
 "Structure": "",
 "Unit": ""

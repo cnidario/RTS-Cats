@@ -39,7 +39,7 @@ func _on_selection_changed():
 		u.connect("unit_hp_changed", self, "unit_hp_changed")
 	if selection_manager.is_empty_selection():
 		visible = false
-	elif !selection_manager.is_multiple_selection():
+	elif selection_manager.is_single_selection():
 		single_unit_selected(_selection[0])
 	
 	
