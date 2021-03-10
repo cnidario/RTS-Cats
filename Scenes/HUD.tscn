@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scripts/CommandPalette.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/HUD.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Portraits/1p.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Fonts/Kenney Mini.ttf" type="DynamicFontData" id=3]
 
@@ -8,7 +8,7 @@
 size = 37
 font_data = ExtResource( 3 )
 
-[node name="CommandBar" type="Control"]
+[node name="HUD" type="Control"]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

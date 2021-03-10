@@ -17,7 +17,6 @@ func set_selection(sel):
 	emit_signal("selection_changed", selection)
 
 func _unit_clicked(unit):
-	print("unit clicked")
 	set_selection([unit])
 
 func clear_selection():
@@ -35,14 +34,12 @@ func selection_changed(old, selection):
 			pass
 
 func select_single_unit(old, unit: Unit):
-	# set hud portrait
-	$Camera2D/CommandBar.set_portrait_info(unit.unit_descrition["portrait_img"], unit.unit_descrition["unit_type"])
-	$Camera2D/CommandBar.visible = true
+	$Camera2D/HUD.single_unit_selected(unit)
 	deselect_units(old)
 	unit.selected = true
 
 func deselect_all(old):
-	$Camera2D/CommandBar.visible = false
+	$Camera2D/HUD.clear_unit_selection()
 	deselect_units(old)
 
 func deselect_units(units):
