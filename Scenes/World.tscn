@@ -17,36 +17,33 @@ script = ExtResource( 3 )
 [node name="Structures" type="Node" parent="."]
 
 [node name="Structure" parent="Structures" instance=ExtResource( 5 )]
-position = Vector2( 2398.17, 1595.28 )
+position = Vector2( 783.861, 422.857 )
 
 [node name="Structure2" parent="Structures" instance=ExtResource( 5 )]
-position = Vector2( 1957.2, 1340.78 )
+position = Vector2( 193.22, 157.667 )
 
 [node name="Units" type="Node" parent="."]
 
 [node name="Unit2" parent="Units" instance=ExtResource( 2 )]
-position = Vector2( 2176, 1664 )
+position = Vector2( 244.532, 470.196 )
 
 [node name="Unit" parent="Units" instance=ExtResource( 2 )]
-position = Vector2( 2368, 1280 )
+position = Vector2( 646.784, 336.806 )
 
 [node name="Player" type="Node" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( 2272, 1472 )
+anchor_mode = 0
 current = true
 script = ExtResource( 7 )
-
-[node name="HUD" parent="Player/Camera2D" instance=ExtResource( 4 )]
-visible = false
-margin_left = -160.0
-margin_top = 220.0
-margin_right = -160.0
-margin_bottom = 220.0
-rect_scale = Vector2( 0.5, 0.5 )
 
 [node name="EntityManager" type="Node" parent="."]
 script = ExtResource( 6 )
 
 [node name="SelectionManager" type="Node" parent="."]
 script = ExtResource( 8 )
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="HUDLayer" instance=ExtResource( 4 )]
+position = Vector2( 330.04, 536.265 )

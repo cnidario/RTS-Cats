@@ -27,6 +27,7 @@ func _ready():
 	
 func init(unit_desc):
 	self.unit_desc = unit_desc.duplicate()
+	$sprite.texture = load(unit_desc.sprite_img)
 	current_hp = unit_desc.hitpoints
 	update_hpbar()
 	
@@ -76,16 +77,22 @@ func calculate_speed():
 		speed = Vector2.ZERO
 func set_command(cmd):
 	command = cmd
+	
+func calc_collision_rect(collision_shape):
+	var p = global_position
+	var extents = collision_shape.shape.extents
+	return Rect2(p - extents, extents*2)
 
 func _input(event):
-	if event.is_action_pressed("click"):
-		var ev = make_input_local(event)
-		if Rect2(Vector2(-16,25), Vector2(16, 25)).has_point(ev.position):
+	if event.is_action_pressed("click") or event.is_action_pressed("right_click"):
+		var collision_rect = calc_collision_rect($Area2D/CollisionShape2D)
+		if collision_rect.has_point(get_global_mouse_position()):
 			get_tree().set_input_as_handled()
+			if event.is_action_pressed("click"):
+				emit_signal("clicked", self)
+			elif event.is_action_pressed("right_click"):
+				pass
 
-func _on_Area2D_input_event(viewport, event, shape_idx):
-	if event.is_action_pressed("click"):
-		emit_signal("clicked", self)
 
 func set_selected(newval):
 	selected = newval

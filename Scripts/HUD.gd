@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 var selection_manager: SelectionManager
 var buttons = []
@@ -16,11 +16,11 @@ func add_button(btn):
 	print(buttons)
 
 func set_portrait_info(image: String, name: String):
-	$UnitName/UnitNameLabel.text = name
+	$UnitTextInfo/UnitNameLabel.text = name
 	$portrait_img.texture = load(image)
 
 func update_current_hp(current_hp, max_hp):
-	$UnitInfo/UnitHitpointsLabel.text = "%d/%d hp" % [current_hp, max_hp]
+	$UnitTextInfo/UnitHitpointsLabel.text = "%d/%d hp" % [current_hp, max_hp]
 	
 func unit_hp_changed(unit: Unit):
 	update_current_hp(unit.current_hp, unit.unit_desc.hitpoints)

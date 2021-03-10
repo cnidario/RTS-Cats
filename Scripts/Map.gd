@@ -1,5 +1,7 @@
 extends Node2D
 
+signal right_clicked(position)
+
 export(Vector2) var map_size = Vector2.ONE * 16
 export(Vector2) var cell_size = Vector2(128, 128)
 onready var astar_node = AStar.new()
@@ -73,3 +75,6 @@ func is_outside_map_bounds(point):
 func calculate_point_index(point):
 	return point.x + map_size.x * point.y
 
+func _input(event):
+	if Input.is_action_pressed("right_click"):
+		emit_signal("right_clicked", get_global_mouse_position())

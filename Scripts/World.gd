@@ -9,9 +9,10 @@ var selected_unit
 func _ready():
 	$SelectionManager.init($EntityManager)
 	$EntityManager.init($Units.get_children(), $Structures.get_children())
-	$Player/Camera2D/HUD.init($SelectionManager)
+	$HUDLayer/HUD.init($SelectionManager)
+	#test
 	var p = $Player/Camera2D.get_camera_position()
-	var unit: Unit = $EntityManager.create_unit_type(p - Vector2(100, 100), Defs.UnitType.Espadachin)
+	var unit: Unit = $EntityManager.create_unit_type(p + Vector2(100, 100), Defs.UnitType.Espadachin)
 	$Units.add_child(unit)
 	var structure = $EntityManager.create_structure(p + Vector2(600, 128))
 	$Structures.add_child(structure)
