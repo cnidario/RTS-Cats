@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Sprites/Icons/build_castle.png" type="Texture" id=1]
+
+[node name="HUDButton" type="Button"]
+anchor_right = 0.049
+anchor_bottom = 0.107
+margin_right = 81.824
+margin_bottom = 93.8
+size_flags_horizontal = 3
+icon = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
